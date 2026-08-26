@@ -22,6 +22,13 @@ fields.forEach(field => field.addEventListener('click', () => {
 
 nodes.forEach(node => node.addEventListener('click', () => showDetail(node.dataset.target)));
 
+document.querySelectorAll('.whyToggle').forEach(btn => btn.addEventListener('click', () => {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!expanded));
+  const content = btn.nextElementSibling;
+  if (expanded) content.hidden = true; else content.hidden = false;
+}));
+
 const practiceIcons = document.querySelectorAll('.practiceIcon');
 const practiceNotes = document.querySelectorAll('.practiceNote');
 
