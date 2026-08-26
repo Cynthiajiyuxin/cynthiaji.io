@@ -21,3 +21,11 @@ fields.forEach(field => field.addEventListener('click', () => {
 }));
 
 nodes.forEach(node => node.addEventListener('click', () => showDetail(node.dataset.target)));
+
+const practiceIcons = document.querySelectorAll('.practiceIcon');
+const practiceNotes = document.querySelectorAll('.practiceNote');
+
+practiceIcons.forEach(icon => icon.addEventListener('click', () => {
+  practiceIcons.forEach(item => item.classList.toggle('active', item === icon));
+  practiceNotes.forEach(note => note.classList.toggle('active', note.id === icon.dataset.practice));
+}));
