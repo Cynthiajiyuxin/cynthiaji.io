@@ -1,33 +1,26 @@
-const fields = document.querySelectorAll('.field');
-const nodes = document.querySelectorAll('.node');
-const details = document.querySelectorAll('.detail');
+const timelineFilters = document.querySelectorAll('.timelineFilter');
+const timelineItems = document.querySelectorAll('.timelineItem');
+const timelineDetails = document.querySelectorAll('.timelineDetails .detail');
 
-function showDetail(id) {
-  details.forEach(detail => detail.classList.toggle('active', detail.id === id));
-  nodes.forEach(node => node.classList.toggle('active', node.dataset.target === id));
+function showTimelineDetail(id) {
+  timelineDetails.forEach(detail => detail.classList.toggle('active', detail.id === id));
+  timelineItems.forEach(item => item.classList.toggle('active', item.dataset.target === id));
 }
 
-fields.forEach(field => field.addEventListener('click', () => {
-  const selected = field.dataset.field;
-  fields.forEach(item => item.classList.toggle('active', item === field));
+timelineFilters.forEach(filter => filter.addEventListener('click', () => {
+  const selected = filter.dataset.field;
+  timelineFilters.forEach(item => item.classList.toggle('active', item === filter));
   let firstVisible;
-  nodes.forEach(node => {
-    const visible = selected === 'all' || node.dataset.fields.split(' ').includes(selected);
-    node.classList.toggle('muted', !visible);
-    node.disabled = !visible;
-    if (visible && !firstVisible) firstVisible = node;
+  timelineItems.forEach(item => {
+    const visible = selected === 'all' || item.dataset.fields.split(' ').includes(selected);
+    item.classList.toggle('muted', !visible);
+    item.disabled = !visible;
+    if (visible && !firstVisible) firstVisible = item;
   });
-  if (firstVisible) showDetail(firstVisible.dataset.target);
+  if (firstVisible) showTimelineDetail(firstVisible.dataset.target);
 }));
 
-nodes.forEach(node => node.addEventListener('click', () => showDetail(node.dataset.target)));
-
-document.querySelectorAll('.whyToggle').forEach(btn => btn.addEventListener('click', () => {
-  const expanded = btn.getAttribute('aria-expanded') === 'true';
-  btn.setAttribute('aria-expanded', String(!expanded));
-  const content = btn.nextElementSibling;
-  if (expanded) content.hidden = true; else content.hidden = false;
-}));
+timelineItems.forEach(item => item.addEventListener('click', () => showTimelineDetail(item.dataset.target)));
 
 const practiceIcons = document.querySelectorAll('.practiceIcon');
 const practiceNotes = document.querySelectorAll('.practiceNote');
